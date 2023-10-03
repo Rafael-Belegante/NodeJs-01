@@ -1,5 +1,5 @@
 const mysql = require("mysql2/promise");
-const databaseConfig = require("../config/database")
+const databaseConfig = require("../config/database");
 
 async function CreateUser (req, res) {
     const { name, password } = req.query;
@@ -48,7 +48,7 @@ async function GetUsersById (req, res) {
     try {
         const connection = await mysql.createConnection(databaseConfig);
 
-        const user = await connection.query('SELECT * FROM user WHERE id = ?', [id]);
+        const [user] = await connection.query('SELECT * FROM user WHERE id = ?', [id]);
         await connection.end()
 
         res.status(200).json(user)

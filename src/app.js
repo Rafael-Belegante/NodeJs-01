@@ -1,18 +1,18 @@
 const express = require("express");
-const userRouter = require("./router/userRouter")
+const userRouter = require("./router/userRouter");
+const authRouter = require("./router/authRouter");
+const bodyParser = require("body-parser");
+const cors = require("cors");
 
 const app = express();
 const port = 3500;
 
-app.use("/api", userRouter);
+app.use(bodyParser.json());
+// app.use(cors);
 
-app.get("/", (req, res) => {
-    res.send({
-        nome: "João",
-        telefone: "47 998765-4321"
-    })
-})
+app.use("/api", userRouter);
+app.use("/api", authRouter);
 
 app.listen(port, () => {
     console.log("Server Online!!!")
-})
+});
